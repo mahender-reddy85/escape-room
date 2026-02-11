@@ -14,9 +14,9 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           <p className="text-slate-400 mt-4 text-[10px] md:text-sm uppercase tracking-[0.4em]">3D Logic Challenge</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-left">
           <div className="p-4 md:p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
-            <h3 className="text-[10px] font-bold uppercase tracking-widest mb-3 md:mb-4 opacity-50 text-slate-500">Instructions</h3>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest mb-3 md:mb-4 opacity-50 text-slate-500">What to do?</h3>
             <div className="text-xs md:text-sm text-slate-600">
               <div className="flex items-center justify-center space-x-2 mb-2">
                 <span className="font-bold text-slate-900">EXPLORE</span>
@@ -26,12 +26,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
                 <span className="font-bold text-slate-900">CUBE</span>
                 <span className="text-slate-400">→</span>
                 <span className="font-bold text-slate-900">KEY</span>
+                <span className="text-slate-400">→</span>
+                <span className="font-bold text-slate-900">ESCAPE</span>
               </div>
               <ul className="space-y-1 md:space-y-2 mt-3 text-xs">
-                <li>• Drag to explore the 3D room</li>
-                <li>• Find terminal to solve C questions</li>
-                <li>• Power cabinet with the data cube</li>
-                <li>• Search drawers for the hidden micro-key</li>
+                <li>• Explore room</li>
+                <li>• Solve C Qs</li>
+                <li>• Power cube</li>
+                <li>• Find key </li>
               </ul>
             </div>
           </div>
@@ -40,6 +42,41 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
             <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
               C Programming Challenge: Pointers, Arrays, Functions, Memory Management, Data Structures
             </p>
+          </div>
+          <div className="p-4 md:p-6 border border-slate-200 bg-white shadow-sm rounded-sm">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest mb-3 md:mb-4 opacity-50 text-slate-500">Game Levels</h3>
+            <div className="text-xs md:text-sm text-slate-600">
+              <div className="space-y-2 mb-3">
+                <div className="flex items-center space-x-2">
+                  <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] font-bold">1</span>
+                  <span className="text-slate-700">Beginner</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-6 h-6 bg-slate-700 text-white rounded-full flex items-center justify-center text-[10px] font-bold">2</span>
+                  <span className="text-slate-700">Basic</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-6 h-6 bg-slate-600 text-white rounded-full flex items-center justify-center text-[10px] font-bold">3</span>
+                  <span className="text-slate-700">Intermediate</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-6 h-6 bg-slate-500 text-white rounded-full flex items-center justify-center text-[10px] font-bold">4</span>
+                  <span className="text-slate-700">Advanced</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center text-[10px] font-bold">5</span>
+                  <span className="text-slate-700">Expert</span>
+                </div>
+              </div>
+              <div className="border-t pt-3 mt-3">
+                <p className="font-bold text-slate-800 mb-1">Life System:</p>
+                <ul className="space-y-1 text-[10px] text-slate-600">
+                  <li>• 3 questions per level</li>
+                  <li>• Wrong answer = -1 life</li>
+                  <li>• 0 lives = restart Level 1</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
