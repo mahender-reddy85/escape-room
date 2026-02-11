@@ -131,7 +131,7 @@ const GameScene: React.FC<GameSceneProps> = ({
 
       {/* TERMINAL BOARD */}
       <group ref={boardGroupRef} position={[0, 1.5, -1.9]}>
-        <InteractiveObject name="BOARD" position={[0, 0, 0]} onClick={() => onObjectClick('BOARD')} active={true} hoverScale={1.02}>
+        <InteractiveObject name="BOARD" position={[0, 0, 0]} onClick={() => onObjectClick('BOARD')} active={true} hoverScale={1.02} message="Terminal: Access C programming challenges">
           <mesh castShadow>
             <boxGeometry args={[1.5, 1, 0.1]} />
             <meshStandardMaterial ref={boardMaterialRef} color="#f8fafc" emissive="#000" metalness={0.1} roughness={0.5} />
