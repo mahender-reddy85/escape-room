@@ -49,8 +49,9 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
               <p className="font-bold text-slate-800 mb-1">Life System:</p>
               <ul className="space-y-1 text-[10px] text-slate-600">
                 <li>• 3 questions per level</li>
+                <li>• 3 lives per level</li>
                 <li>• Wrong answer = -1 life</li>
-                <li>• 0 lives = restart Level 1</li>
+                <li>• 0 lives = automatically restarts challenge</li>
               </ul>
             </div>
           </div>

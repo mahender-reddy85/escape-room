@@ -81,7 +81,7 @@
                   <li>🔄 <strong>Tab switching</strong> will refresh the page</li>
                   <li>🛠️ <strong>Developer tools</strong> will refresh the page</li>
                   <li>🚫 <strong>Right-click</strong> and copy are disabled</li>
-                  <li>⚠️ <strong>Cheating</strong> will show "CHEATED" watermark</li>
+                  <li>⚠️ <strong>Cheating</strong> will refresh the page</li>
                 </ul>
                 <p style="color: #e74c3c; font-weight: bold;"><strong>WARNING: This is extremely aggressive!</strong></p>
                 <p>You will lose progress if you switch tabs or try to screenshot.</p>
@@ -188,56 +188,6 @@
           location.reload();
         }
       });
-
-      // Add "CHEATED" watermark after page reloads from cheating
-      function addCheatedWatermark() {
-        // Check if this was a refresh from cheating
-        if (performance.navigation.type === 1) { // Type 1 = page reload
-          const watermark = document.createElement('div');
-          watermark.id = 'cheated-watermark';
-          watermark.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 150px;
-            color: rgba(255,0,0,0.3);
-            pointer-events: none;
-            z-index: 9999;
-            font-weight: bold;
-            user-select: none;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-          `;
-          watermark.textContent = 'CHEATED';
-          document.body.appendChild(watermark);
-          
-          // Show warning message
-          const warning = document.createElement('div');
-          warning.style.cssText = `
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,0,0,0.9);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 18px;
-            z-index: 10000;
-            font-family: monospace;
-            animation: blink 1s infinite;
-          `;
-          warning.innerHTML = '⚠️ CHEATING DETECTED - Page Refreshed';
-          document.body.appendChild(warning);
-          
-          // Remove warning after 3 seconds
-          setTimeout(() => {
-            if (warning.parentNode) {
-              warning.remove();
-            }
-          }, 3000);
-        }
-      }
 
       // Disable copy/paste globally
       document.addEventListener('copy', function(e) {
