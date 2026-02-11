@@ -21,6 +21,13 @@
         -webkit-user-select: none;
         user-select: none;
         touch-action: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
       }
       #root {
         width: 100%;
@@ -43,8 +50,73 @@
       }
     }
     </script>
+    <script>
+      // Disable right-click
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Disable text selection
+      document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Disable drag
+      document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Disable screenshot attempts (limited effectiveness)
+      document.addEventListener('keydown', function(e) {
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+            (e.ctrlKey && e.key === 'u')) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Disable print screen
+      window.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+          navigator.clipboard.writeText('');
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Clear clipboard on page blur (when switching tabs)
+      window.addEventListener('blur', function() {
+        navigator.clipboard.writeText('');
+      });
+
+      // Disable devtools detection
+      let devtools = {
+        open: false,
+        orientation: null
+      };
+      
+      const threshold = 160;
+      
+      setInterval(function() {
+        if (window.outerHeight - window.innerHeight > threshold || 
+            window.outerWidth - window.innerWidth > threshold) {
+          if (!devtools.open) {
+            devtools.open = true;
+            // Optional: redirect or show message
+            // window.location.href = 'about:blank';
+          }
+        } else {
+          devtools.open = false;
+        }
+      }, 500);
+    </script>
   </head>
-  <body class="bg-slate-50 overflow-hidden m-0 p-0 select-none">
+  <body class="bg-slate-50 overflow-hidden m-0 p-0 select-none" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
