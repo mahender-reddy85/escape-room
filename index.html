@@ -95,35 +95,89 @@
             window.outerWidth - window.innerWidth > threshold) {
           if (!devtools.open) {
             devtools.open = true;
-            // Add overlay to discourage copying
-            const deterrent = document.createElement('div');
-            deterrent.id = 'devtools-deterrent';
-            deterrent.style.cssText = `
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: rgba(0,0,0,0.9);
-              color: white;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 24px;
-              z-index: 999999;
-              font-family: monospace;
-            `;
-            deterrent.innerHTML = '🚫 Developer tools detected - Please close to continue';
-            document.body.appendChild(deterrent);
+            // Refresh page immediately
+            location.reload();
           }
         } else {
-          if (devtools.open) {
-            devtools.open = false;
-            const deterrent = document.getElementById('devtools-deterrent');
-            if (deterrent) deterrent.remove();
-          }
+          devtools.open = false;
         }
       }, 500);
+
+      // Detect screenshot attempts and refresh page
+      document.addEventListener('keydown', function(e) {
+        // Print screen detection (limited but try)
+        if (e.key === 'PrintScreen' || e.keyCode === 44) {
+          e.preventDefault();
+          location.reload();
+          return false;
+        }
+      });
+
+      // Refresh page when switching tabs or losing focus
+      let tabSwitchCount = 0;
+      window.addEventListener('blur', function() {
+        tabSwitchCount++;
+        if (tabSwitchCount >= 1) {
+          location.reload();
+        }
+      });
+
+      // Detect visibility change (tab switching)
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          location.reload();
+        }
+      });
+
+      // Add "CHEATED" watermark after page reloads from cheating
+      function addCheatedWatermark() {
+        // Check if this was a refresh from cheating
+        if (performance.navigation.type === 1) { // Type 1 = page reload
+          const watermark = document.createElement('div');
+          watermark.id = 'cheated-watermark';
+          watermark.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 150px;
+            color: rgba(255,0,0,0.3);
+            pointer-events: none;
+            z-index: 9999;
+            font-weight: bold;
+            user-select: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+          `;
+          watermark.textContent = 'CHEATED';
+          document.body.appendChild(watermark);
+          
+          // Show warning message
+          const warning = document.createElement('div');
+          warning.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,0,0,0.9);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            z-index: 10000;
+            font-family: monospace;
+            animation: blink 1s infinite;
+          `;
+          warning.innerHTML = '⚠️ CHEATING DETECTED - Page Refreshed';
+          document.body.appendChild(warning);
+          
+          // Remove warning after 3 seconds
+          setTimeout(() => {
+            if (warning.parentNode) {
+              warning.remove();
+            }
+          }, 3000);
+        }
+      }
 
       // Disable copy/paste globally
       document.addEventListener('copy', function(e) {
@@ -143,27 +197,8 @@
         return false;
       });
 
-      // Add watermark overlay (optional visual deterrent)
-      function addWatermark() {
-        const watermark = document.createElement('div');
-        watermark.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) rotate(-45deg);
-          font-size: 120px;
-          color: rgba(255,255,255,0.1);
-          pointer-events: none;
-          z-index: 9999;
-          font-weight: bold;
-          user-select: none;
-        `;
-        watermark.textContent = 'PROTECTED';
-        document.body.appendChild(watermark);
-      }
-
       // Add watermark after page loads
-      window.addEventListener('load', addWatermark);
+      window.addEventListener('load', addCheatedWatermark);
     </script>
   </head>
   <body class="bg-slate-50 overflow-hidden m-0 p-0 select-none" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
