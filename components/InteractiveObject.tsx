@@ -132,19 +132,11 @@ const InteractiveObject = forwardRef<any, InteractiveObjectProps>(({
             <planeGeometry args={[2, 0.5]} />
             <meshStandardMaterial color="#1f2937" transparent opacity={0.9} />
           </mesh>
+          {/* Simple message indicator without text */}
           <mesh position={[0, 0, 0.01]}>
             <planeGeometry args={[1.8, 0.4]} />
             <meshStandardMaterial color="#ffffff" />
           </mesh>
-          <text
-            position={[0, 0, 0.02]}
-            fontSize={0.15}
-            color="#1f2937"
-            anchorX="center"
-            anchorY="middle"
-          >
-            {message}
-          </text>
         </group>
       )}
     </group>
