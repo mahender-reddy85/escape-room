@@ -51,7 +51,65 @@
     }
     </script>
     <script>
-      // Disable right-click
+      // Check if user has agreed to terms
+      if (!localStorage.getItem('adminAgreement')) {
+        // Show admin agreement dialog
+        const agreementDialog = document.createElement('div');
+        agreementDialog.id = 'admin-agreement';
+        agreementDialog.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.95);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 999999;
+          font-family: Arial, sans-serif;
+        `;
+        
+        agreementDialog.innerHTML = `
+          <div style="background: white; padding: 40px; border-radius: 12px; max-width: 500px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <h2 style="color: #333; margin-bottom: 20px; font-size: 28px;">⚠️ IMPORTANT WARNING</h2>
+            <div style="color: #666; margin-bottom: 30px; line-height: 1.6; text-align: left;">
+              <p style="margin-bottom: 15px;"><strong>This website has aggressive anti-cheat protection:</strong></p>
+              <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li>📸 <strong>Screenshot attempts</strong> will refresh the page</li>
+                <li>🔄 <strong>Tab switching</strong> will refresh the page</li>
+                <li>🛠️ <strong>Developer tools</strong> will refresh the page</li>
+                <li>🚫 <strong>Right-click</strong> and copy are disabled</li>
+                <li>⚠️ <strong>Cheating</strong> will show "CHEATED" watermark</li>
+              </ul>
+              <p style="color: #e74c3c; font-weight: bold;"><strong>WARNING: This is extremely aggressive!</strong></p>
+              <p>You will lose progress if you switch tabs or try to screenshot.</p>
+            </div>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+              <button id="agree-btn" style="background: #e74c3c; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold;">I Agree - Enable Protection</button>
+              <button id="decline-btn" style="background: #95a5a6; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 16px; cursor: pointer;">Leave Site</button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(agreementDialog);
+        
+        // Handle button clicks
+        document.getElementById('agree-btn').addEventListener('click', function() {
+          localStorage.setItem('adminAgreement', 'yes');
+          agreementDialog.remove();
+          initializeAntiCheat();
+        });
+        
+        document.getElementById('decline-btn').addEventListener('click', function() {
+          window.location.href = 'about:blank';
+        });
+      } else {
+        // User already agreed, initialize anti-cheat
+        initializeAntiCheat();
+      }
+
+      function initializeAntiCheat() {
       document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         return false;
@@ -199,6 +257,7 @@
 
       // Add watermark after page loads
       window.addEventListener('load', addCheatedWatermark);
+      }
     </script>
   </head>
   <body class="bg-slate-50 overflow-hidden m-0 p-0 select-none" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
