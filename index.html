@@ -69,32 +69,20 @@
         return false;
       });
 
-      // Disable screenshot attempts (limited effectiveness)
+      // Stronger content protection
       document.addEventListener('keydown', function(e) {
         // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
         if (e.key === 'F12' || 
             (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-            (e.ctrlKey && e.key === 'u')) {
+            (e.ctrlKey && e.key === 'u') ||
+            (e.ctrlKey && e.key === 's') ||
+            (e.ctrlKey && e.key === 'p')) {
           e.preventDefault();
           return false;
         }
       });
 
-      // Disable print screen
-      window.addEventListener('keyup', function(e) {
-        if (e.key === 'PrintScreen') {
-          navigator.clipboard.writeText('');
-          e.preventDefault();
-          return false;
-        }
-      });
-
-      // Clear clipboard on page blur (when switching tabs)
-      window.addEventListener('blur', function() {
-        navigator.clipboard.writeText('');
-      });
-
-      // Disable devtools detection
+      // Add visual deterrent on devtools open
       let devtools = {
         open: false,
         orientation: null
@@ -107,13 +95,75 @@
             window.outerWidth - window.innerWidth > threshold) {
           if (!devtools.open) {
             devtools.open = true;
-            // Optional: redirect or show message
-            // window.location.href = 'about:blank';
+            // Add overlay to discourage copying
+            const deterrent = document.createElement('div');
+            deterrent.id = 'devtools-deterrent';
+            deterrent.style.cssText = `
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0,0,0,0.9);
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 24px;
+              z-index: 999999;
+              font-family: monospace;
+            `;
+            deterrent.innerHTML = '🚫 Developer tools detected - Please close to continue';
+            document.body.appendChild(deterrent);
           }
         } else {
-          devtools.open = false;
+          if (devtools.open) {
+            devtools.open = false;
+            const deterrent = document.getElementById('devtools-deterrent');
+            if (deterrent) deterrent.remove();
+          }
         }
       }, 500);
+
+      // Disable copy/paste globally
+      document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        return false;
+      });
+      
+      document.addEventListener('paste', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Disable right-click with stronger prevention
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      });
+
+      // Add watermark overlay (optional visual deterrent)
+      function addWatermark() {
+        const watermark = document.createElement('div');
+        watermark.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-45deg);
+          font-size: 120px;
+          color: rgba(255,255,255,0.1);
+          pointer-events: none;
+          z-index: 9999;
+          font-weight: bold;
+          user-select: none;
+        `;
+        watermark.textContent = 'PROTECTED';
+        document.body.appendChild(watermark);
+      }
+
+      // Add watermark after page loads
+      window.addEventListener('load', addWatermark);
     </script>
   </head>
   <body class="bg-slate-50 overflow-hidden m-0 p-0 select-none" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
