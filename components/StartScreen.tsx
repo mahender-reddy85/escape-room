@@ -7,7 +7,7 @@ interface StartScreenProps {
 const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-50 text-slate-900 p-4 md:p-6 overflow-y-auto">
-      <div className="max-w-4xl w-full text-center space-y-6 md:space-y-8 my-auto">
+      <div className="max-w-6xl w-full text-center space-y-6 md:space-y-8 my-auto">
         <div>
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-2 italic">C-ESCAPE</h1>
           <div className="h-1 w-16 md:w-24 bg-slate-900 mx-auto"></div>
