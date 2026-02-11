@@ -44,14 +44,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
             </p>
           </div>
           <div className="p-6 md:p-8 border border-slate-200 bg-white shadow-sm rounded-sm">
-              <div className="border-t pt-3 mt-3">
-                <p className="font-bold text-slate-800 mb-1">Instructions:</p>
-                <ul className="space-y-1 text-[10px] text-slate-600">
-                  <li>• 3 questions per level</li>
-                  <li>• Wrong answer = -1 life</li>
-                  <li>• 0 lives = restart Level 1</li>
-                </ul>
-              </div>
+            <h3 className="text-[10px] font-bold uppercase tracking-widest mb-3 md:mb-4 opacity-50 text-slate-500">Instructions</h3>
+            <div className="border-t pt-3 mt-3">
+              <p className="font-bold text-slate-800 mb-1">Life System:</p>
+              <ul className="space-y-1 text-[10px] text-slate-600">
+                <li>• 3 questions per level</li>
+                <li>• Wrong answer = -1 life</li>
+                <li>• 0 lives = restart Level 1</li>
+              </ul>
             </div>
           </div>
         </div>
