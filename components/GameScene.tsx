@@ -139,6 +139,22 @@ const GameScene: React.FC<GameSceneProps> = ({
         </InteractiveObject>
       </group>
 
+      {/* LEVEL 3 KEY ON TOP RACK */}
+      {level.id === 3 && (
+        <group position={[0, 2.1, -1.9]} scale={0.06} rotation={[0, Math.PI/4, Math.PI/2]}>
+          <InteractiveObject name="KEY" position={[0,0,0]} onClick={() => onObjectClick('KEY')} active={status === 'KEY_REVEALED'} hoverScale={2.5}>
+            <mesh castShadow>
+              <torusGeometry args={[0.2, 0.05]} />
+              <meshStandardMaterial color="#0f172a" metalness={1} roughness={0.5} />
+            </mesh>
+            <mesh position={[0, -0.3, 0]}>
+              <boxGeometry args={[0.05, 0.5, 0.05]} />
+              <meshStandardMaterial color="#0f172a" metalness={1} />
+            </mesh>
+          </InteractiveObject>
+        </group>
+      )}
+
       {/* LEVEL 4 KEY */}
       {level.id === 4 && (
         <group position={[0, 1.5, -2.1]} scale={0.06} rotation={[0, Math.PI/4, Math.PI/2]}>
@@ -238,7 +254,7 @@ const GameScene: React.FC<GameSceneProps> = ({
                 <mesh position={[0.34, 0, 0]}><boxGeometry args={[0.02, 0.04, 0.2]} /><meshStandardMaterial color="#94a3b8" /></mesh>
                 <mesh position={[-0.15, -0.1, 0]}><boxGeometry args={[0.65, 0.15, 1.1]} /><meshStandardMaterial color="#f1f5f9" /></mesh>
                 {/* Regular level keys in drawers */}
-                {level.id !== 4 && level.id !== 2 && level.id !== 5 && i === keyDrawerIndex && (
+                {level.id !== 4 && level.id !== 2 && level.id !== 3 && level.id !== 5 && i === keyDrawerIndex && (
                   <group position={keyPositionOffset as any} scale={0.06} rotation={[0, Math.PI/4, Math.PI/2]}>
                     <InteractiveObject name="KEY" position={[0,0,0]} onClick={() => onObjectClick('KEY')} active={discoveryState.drawersOpen[i] && status === 'KEY_REVEALED'} hoverScale={2.5}>
                       <mesh castShadow><torusGeometry args={[0.2, 0.05]} /><meshStandardMaterial color="#0f172a" /></mesh>
