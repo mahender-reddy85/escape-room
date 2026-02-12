@@ -40,7 +40,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
           <p className="text-xs text-slate-500 mb-10 leading-relaxed uppercase tracking-widest">
             Expert proficiency in system-level architecture confirmed. Security session terminated.
           </p>
-          <button onClick={onRestart} className="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-[0.5em] text-[10px] hover:bg-slate-800 transition-colors">Meet Mahesh</button>
+          <button className="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-[0.5em] text-[10px] hover:bg-slate-800 transition-colors">Congratulations 🎉</button>
         </div>
       </div>
     );
