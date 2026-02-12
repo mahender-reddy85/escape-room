@@ -79,10 +79,11 @@ export const LEVELS: LevelConfig[] = [
         answer: '&'
       },
       {
-        type: 'TEXT',
-        topic: 'Pointers',
-        prompt: 'If p is int*, what does *p represent?',
-        answer: 'value'
+        type: 'MCQ',
+        topic: 'Arrays',
+        prompt: 'What is the output?\n#include <stdio.h>\nint main() {\n    char str[] = "Hello";\n    printf("%lu", sizeof(str));\n    return 0;\n}',
+        options: ['5', '6', '4', '8'],
+        answer: '6'
       },
       {
         type: 'MCQ',
@@ -103,10 +104,11 @@ export const LEVELS: LevelConfig[] = [
     locationHint: "In Level 4, the terminal board hides secrets. Look behind the logic.",
     questions: [
       {
-        type: 'TEXT',
+        type: 'MCQ',
         topic: 'Memory',
-        prompt: 'Which function allocates a specific number of bytes and returns a void pointer?',
-        answer: 'malloc'
+        prompt: 'What is the output?\n#include <stdio.h>\nint main() {\n    int x = 5;\n    printf("%d %d %d", x, x++, ++x);\n    return 0;\n}',
+        options: ['5 5 7', '5 6 7', 'Undefined Behavior', '5 6 6'],
+        answer: 'Undefined Behavior'
       },
       {
         type: 'MCQ',
@@ -116,10 +118,11 @@ export const LEVELS: LevelConfig[] = [
         answer: '\\0'
       },
       {
-        type: 'TEXT',
-        topic: 'Sizes',
-        prompt: 'What operator returns the size of a data type in bytes?',
-        answer: 'sizeof'
+        type: 'MCQ',
+        topic: 'Strings',
+        prompt: 'What is the output?\n#include <stdio.h>\nint main() {\n    printf("%d", \'a\' - \'A\');\n    return 0;\n}',
+        options: ['26', '32', '1', '0'],
+        answer: '32'
       }
     ]
   },
@@ -140,10 +143,11 @@ export const LEVELS: LevelConfig[] = [
         answer: 'Preserves value between calls'
       },
       {
-        type: 'TEXT',
+        type: 'MCQ',
         topic: 'Structures',
-        prompt: 'Which operator accesses a structure member via a pointer?',
-        answer: '->'
+        prompt: 'What is the output?\n#include <stdio.h>\nint main() {\n    printf("%d", \'z\');\n    return 0;\n}',
+        options: ['120', '121', '122', '123'],
+        answer: '122'
       },
       {
         type: 'MCQ',
