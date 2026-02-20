@@ -33,18 +33,22 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
   }, [currentQuestionIdx, status]);
 
   if (status === 'GAME_COMPLETE') {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50/95 backdrop-blur-xl p-6">
-        <div className="max-w-md w-full p-8 text-center bg-white border border-slate-200 shadow-2xl rounded-sm">
-          <h2 className="text-4xl font-black text-slate-900 mb-4 italic tracking-tighter">VAULT BREACHED</h2>
-          <p className="text-xs text-slate-500 mb-10 leading-relaxed uppercase tracking-widest">
-            Expert proficiency in system-level architecture confirmed. Security session terminated.
-          </p>
-          <button className="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-[0.5em] text-[10px] hover:bg-slate-800 transition-colors">Congratulations 🎉</button>
-        </div>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50/95 backdrop-blur-xl p-6">
+      <div className="max-w-md w-full p-8 text-center bg-white border border-slate-200 shadow-2xl rounded-sm">
+        <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">
+          You Escaped!
+        </h2>
+        <p className="text-sm text-slate-600 mb-10 leading-relaxed">
+          Great job! You solved all the puzzles and completed the escape room successfully.
+        </p>
+        <button className="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-[0.5em] text-[10px] hover:bg-slate-800 transition-colors">
+          Congratulations 🎉
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   if (status === 'LEVEL_TRANSITIONING') {
     return (
